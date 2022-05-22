@@ -1,6 +1,7 @@
-# Level Two Web Application Starter Codebase
+# Level Three Web Application Starter Codebase
 
-This is a starter codebase for building HTML web applications. It uses:
+This is a starter codebase for building database-backed web applications. It
+uses:
 
 * `Ruby` (the language)
 * `RSpec` (the testing tool)
