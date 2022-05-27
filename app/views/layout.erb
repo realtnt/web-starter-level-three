@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lost Cats</title>
+    <base href="/">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <div class="flex-v">
+        <a href="/catboard" class="site-name">Find Your Cat</a>
+        <% if session[:user_id] %>
+          <div class="menu not-signed-in">
+            <a href="/catboard/new">Add Missing Cat Ad</a>
+            <a href="/users/logout">Log Out</a>
+          </div>
+        <% else %>
+          <div class="menu not-signed-in">
+            <a href="/users/signup">Sign Up</a>
+            <a href="/users/login">Log In</a>
+          </div>
+        <% end %>
+      </div>
+    </header>
+    <main class="container">
+      <%= yield %>
+    </main>
+  </body>
+</html>

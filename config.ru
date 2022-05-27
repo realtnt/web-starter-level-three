@@ -2,7 +2,10 @@
 # with `require` rather than `require_relative`
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
-require_relative "./app"
+# require_relative "./app"
+require_relative "app/controllers/user_controller"
+require_relative "app/controllers/catboard_controller"
 
 # This line runs your server
-run WebApplicationServer
+run CatboardController
+use UserController

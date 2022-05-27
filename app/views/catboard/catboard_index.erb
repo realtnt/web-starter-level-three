@@ -1,0 +1,28 @@
+<h1>Catboard</h1>
+<% if cat_ads.empty? %>
+  There are no ads to show.
+<% else %>
+  <% cat_ads.each do |cat_ad| %>
+    <section id="<%= cat_ad.title %>">
+      <h2><%= cat_ad.title %></h2>
+      <div class="flex-h">
+        <img width=120px src="<%= cat_ad.image_url %>">
+        <%= cat_ad.description %>
+        <% if session[:user_id] %>
+          <a class="btn" href="/catboard/<%= cat_ad.id %>/edit">Edit</a>
+          <form action="/catboard/<%= cat_ad.id %>" method="POST">
+            <%#
+              This hidden input is necessary for Sinatrato recognise
+              this as a DELETE request.
+            %>
+            <input type="hidden" name="_method" value="DELETE">
+            <button>Delete</button>
+          </form>
+        <% else %>
+          <div></div>
+          <div></div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+<% end %>

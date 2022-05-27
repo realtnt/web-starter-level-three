@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  color: #999;
+  padding-bottom: 2rem;
+}
+
+hr {
+  height: 1px;
+  background-color: #444;
+  border: none;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+h1,
+h4 {
+  color: white;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
+
+section {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+header {
+  width: 720px;
+  margin: 0 auto;
+  background-color: #212121;
+}
+
+form {
+  display: inline;
+}
+
+.site-name {
+  text-decoration: none;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: left;
+}
+
+.flex-h {
+  margin: 1rem 0.5rem 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+}
+
+.flex-v {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.list {
+  width: 81%;
+  min-height: 4.75rem;
+}
+
+.list-btn {
+  padding: 0.5rem 0.75rem;
+  width: 6rem;
+}
+
+.list-name {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding-right: 0.5rem;
+}
+
+.delete {
+  background-color: rgba(255, 0, 0, 0.496);
+  color: #ccc
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.btn {
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  background-color: #ffb300;
+  color: #212121 !important;
+  border-radius: 0.3rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.menu {
+  margin: 1rem 0.5rem 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.25rem;
+}

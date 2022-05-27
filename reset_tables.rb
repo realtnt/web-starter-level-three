@@ -6,8 +6,44 @@ require "database_connection"
 # database tables are re-created.
 
 def reset_tables(db)
-  db.run("DROP TABLE IF EXISTS animals;")
-  db.run("CREATE TABLE animals (id SERIAL PRIMARY KEY, species TEXT NOT NULL);")
+  db.run("DROP TABLE IF EXISTS cat_ads;")
+  db.run("CREATE TABLE cat_ads (
+    id SERIAL PRIMARY KEY, 
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    image_url TEXT
+    );"
+  )
+  db.run("DROP TABLE IF EXISTS users;")
+  db.run("CREATE TABLE users (
+    id SERIAL PRIMARY KEY, 
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
+    name TEXT NOT NULL,
+    mobile TEXT NOT NULL,
+    advertiser BOOLEAN
+    );"
+  )
+
+  db.run("DROP TABLE IF EXISTS sightings;")
+  db.run("CREATE TABLE sightings (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    cat_ad_id INT, 
+    location TEXT NOT NULL,
+    details TEXT NOT NULL,
+    spotted_on DATE NOT NULL,
+    posted_on TIMESTAMP NOT NULL,
+    CONSTRAINT fk_user
+      FOREIGN KEY(user_id) 
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_cat_ad
+      FOREIGN KEY(cat_ad_id) 
+        REFERENCES cat_ads(id)
+        ON DELETE CASCADE
+    );"
+  )
 
   # Add your table creation SQL here
   # Each one should be a pair of lines:
