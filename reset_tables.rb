@@ -6,26 +6,7 @@ require "database_connection"
 # database tables are re-created.
 
 def reset_tables(db)
-  db.run("DROP TABLE IF EXISTS cat_ads;")
-  db.run("CREATE TABLE cat_ads (
-    id SERIAL PRIMARY KEY, 
-    title TEXT NOT NULL,
-    description TEXT NOT NULL,
-    image_url TEXT
-    );"
-  )
-  db.run("DROP TABLE IF EXISTS users;")
-  db.run("CREATE TABLE users (
-    id SERIAL PRIMARY KEY, 
-    email TEXT NOT NULL,
-    password TEXT NOT NULL,
-    name TEXT NOT NULL,
-    mobile TEXT NOT NULL,
-    advertiser BOOLEAN
-    );"
-  )
-
-  db.run("DROP TABLE IF EXISTS sightings;")
+  db.run("DROP TABLE IF EXISTS sightings CASCADE;")
   db.run("CREATE TABLE sightings (
     id SERIAL PRIMARY KEY,
     user_id INT,
@@ -42,6 +23,30 @@ def reset_tables(db)
       FOREIGN KEY(cat_ad_id) 
         REFERENCES cat_ads(id)
         ON DELETE CASCADE
+    );"
+  )
+
+  db.run("DROP TABLE IF EXISTS cat_ads CASCADE;")
+  db.run("CREATE TABLE cat_ads (
+    id SERIAL PRIMARY KEY, 
+    user_id INT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    image_url TEXT,
+    CONSTRAINT fk_user
+      FOREIGN KEY(user_id) 
+        REFERENCES users(id)
+        ON DELETE CASCADE
+    );"
+  )
+  db.run("DROP TABLE IF EXISTS users CASCADE;")
+  db.run("CREATE TABLE users (
+    id SERIAL PRIMARY KEY, 
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
+    name TEXT NOT NULL,
+    mobile TEXT NOT NULL,
+    advertiser BOOLEAN
     );"
   )
 

@@ -62,6 +62,7 @@ class CatboardController < Sinatra::Base
       title: params[:title],
       description: params[:description],
       image_url: params[:image_url] == " " ? nil : params[:image_url],
+      user_id: session[:user_id]
     ))
     redirect '/catboard'
   end
