@@ -14,15 +14,10 @@ class SightingsTable
 
   def add(sighting)
     result = @db.run(
-      "INSERT INTO sightings (location, details, user_id, cat_ad_id, spotted_on, posted_on) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;", 
-      [
-        sighting.location, 
-        sighting.details, 
-        sighting.user_id,
-        sighting.cat_ad_id, 
-        sighting.spotted_on,
-        sighting.posted_on
-      ])
+      "INSERT INTO sightings (location, details, user_id, cat_ad_id, spotted_on, posted_on) 
+        VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;", 
+        [sighting.location, sighting.details, sighting.user_id, sighting.cat_ad_id, 
+          sighting.spotted_on, sighting.posted_on])
     return result[0]["id"]
   end
 

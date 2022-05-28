@@ -19,14 +19,9 @@ class UsersTable
 
   def add(user)
     result = @db.run(
-      "INSERT INTO users (email, name, password, mobile, advertiser) VALUES ($1, $2, $3, $4, $5) RETURNING id;", 
-      [
-        user.email, 
-        user.name, 
-        user.password,
-        user.mobile, 
-        user.advertiser
-      ])
+      "INSERT INTO users (email, name, password, mobile, advertiser) 
+        VALUES ($1, $2, $3, $4, $5) RETURNING id;", 
+        [user.email, user.name, user.password, user.mobile, user.advertiser])
     return result[0]["id"]
   end
 

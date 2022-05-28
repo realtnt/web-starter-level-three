@@ -13,8 +13,9 @@ class CatAdsTable
 
   def add(cat_ad)
     result = @db.run(
-      "INSERT INTO cat_ads (title, description, image_url, user_id) VALUES ($1, $2, $3, $4) RETURNING id;", 
-      [cat_ad.title, cat_ad.description, cat_ad.image_url, cat_ad.user_id]
+      "INSERT INTO cat_ads (title, description, image_url, user_id) 
+        VALUES ($1, $2, $3, $4) RETURNING id;", 
+        [cat_ad.title, cat_ad.description, cat_ad.image_url, cat_ad.user_id]
     )
     return result[0]["id"]
   end
