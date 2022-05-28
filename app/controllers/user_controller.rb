@@ -53,20 +53,20 @@ class UserController < Sinatra::Base
   end
 
   post '/users' do
-    @user = UserEntity.new(
+    user = UserEntity.new(
       email: params["email"],
       name: params["name"],
       password: params["password"],
       mobile: params["mobile"],
       advertiser: params["advertiser"]
     )
-    session[:user_id] = users_table.add(@user)
+    session[:user_id] = users_table.add(user)
     redirect '/users/profile'
   end
 
   get '/users/profile' do
-    @user = users_table.get(session[:user_id])
-    erb :'users/profile'
+    user = users_table.get(session[:user_id])
+    erb :'users/profile', locals: { user: user }
   end
 
   get '/users/login' do
@@ -85,6 +85,23 @@ class UserController < Sinatra::Base
   get '/users/logout' do
     session.clear
     redirect '/catboard'
+  end
+
+  get '/users/profile/:index/edit' do
+    user = users_table.get(params[:index])
+    erb :'users/profile_edit', locals: { user: user }
+  end
+
+  patch '/users/profile/:index' do
+    users_table.update(
+      index: params[:index],
+      email: params[:email],
+      name: params[:name],
+      password: params[:password],
+      mobile: params[:mobile],
+      advertiser: params[:advertiser]       
+    )
+    redirect "/users/profile"
   end
 
 end

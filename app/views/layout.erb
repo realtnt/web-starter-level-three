@@ -13,6 +13,8 @@
         <% if session[:user_id] %>
           <div class="menu not-signed-in">
             <a href="/catboard/new">Add Missing Cat Ad</a>
+            <a href="/catboard/my/ads">My Cat Ads</a>
+            <a href="/users/profile">Profile</a>
             <a href="/users/logout">Log Out</a>
           </div>
         <% else %>

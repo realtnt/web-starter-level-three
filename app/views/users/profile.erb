@@ -2,14 +2,19 @@
 <section>
   <h4>Name:</h4>
   <p>
-    <%= @user.name %>
+    <%= user.name %>
   </p>
   <h4>Email:</h4>
   <p>
-    <%= @user.email %>
+    <%= user.email %>
   </p>
   <h4>Mobile:</h4>
   <p>
-    <%= @user.mobile %>
+    <%= user.mobile %>
   </p>
+  <h4>Advertiser:</h4>
+  <p>
+    <%= user.advertiser ? "Yes" : "No" %>
+  </p>
+  <a class="btn" href="/users/profile/<%= user.id %>/edit">Edit</a>
 </section>

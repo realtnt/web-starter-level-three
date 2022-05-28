@@ -11,6 +11,14 @@ class CatAdsTable
     end
   end
 
+  def list_by_user_id(user_id)
+    return @db.run("SELECT * FROM cat_ads 
+      WHERE user_id = $1 
+      ORDER BY id;", [user_id]).map do |row|
+             row_to_object(row)
+           end
+  end
+
   def add(cat_ad)
     result = @db.run(
       "INSERT INTO cat_ads (title, description, image_url, user_id) 

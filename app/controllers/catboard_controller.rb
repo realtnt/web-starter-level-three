@@ -154,4 +154,10 @@ class CatboardController < Sinatra::Base
     )
     redirect "/catboard/#{params[:ad_index]}"
   end
+
+  get '/catboard/my/ads' do
+    erb :'catboard/catboard_index', locals: { 
+      cat_ads: cat_ads_table.list_by_user_id(session[:user_id])
+    }
+  end
 end

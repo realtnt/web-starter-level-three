@@ -29,9 +29,11 @@ class UsersTable
     @db.run("DELETE FROM users WHERE id = $1;", [index])
   end
 
-  def update(index:, title:, description:, image_url:)
-    @db.run("UPDATE users SET title = $1, description = $2, image_url = $3 WHERE id = $4;", 
-      [title, description, image_url, index])
+  def update(index:, email:, name:, password:, mobile:, advertiser:)
+    @db.run("UPDATE users 
+      SET email = $1, name = $2, password = $3, mobile = $4, advertiser = $5
+      WHERE id = $6;", 
+      [email, name, password, mobile, advertiser, index])
   end
 
   def get(index)

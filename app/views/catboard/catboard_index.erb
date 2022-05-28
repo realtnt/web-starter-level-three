@@ -1,6 +1,6 @@
-<h1>Catboard</h1>
 <% if cat_ads.empty? %>
-  There are no ads to show.
+  <p>There are no ads to show.</p>
+  <img width=640px src="https://images.esellerpro.com/3274/I/624/80/lrgscaleELE044.jpg">
 <% else %>
   <% cat_ads.each do |cat_ad| %>
     <section name="<%= cat_ad.title %>">

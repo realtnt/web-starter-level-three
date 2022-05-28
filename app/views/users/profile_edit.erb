@@ -1,0 +1,20 @@
+<h2>Sign Up</h2>
+<form action="/users/profile/<%= user.id %>" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" value="<%= user.name %>">
+  <br>
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email" value="<%= user.email %>">
+  <br>
+  <label for="mobile">Mobile:</label>
+  <input type="text" id="mobile" name="mobile" value="<%= user.mobile %>">
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" value="<%= user.password %>">
+  <br>
+  <label for="advertiser">Advertiser:</label>
+  <input type="checkbox" id="advertiser" name="advertiser" <%= user.advertiser == 't' ? "checked" : "" %>>
+  <br>
+  <input type="submit" value="Save">
+</form>
