@@ -1,0 +1,19 @@
+<h2><%= cat_ad.title %></h2>
+<h4>Have you seen this cat? Please give details:</h4>
+<form action="/catboard/<%= cat_ad.id %>/sighting/new" method="POST">
+  <p>
+    <label for="location">Where?</label>
+    <br>
+    <input type="text" id="location" name="location">
+    <br>
+    <label for="spotted_on">When?</label>
+    <br>
+    <input type="date" id="spotted_on" name="spotted_on">
+    <br>
+    <label for="details">Any more info?</label>
+    <br>
+    <textarea id="details" name="details"></textarea>
+    <br>
+    <input type="submit" value="Submit">
+  </p>
+</form>

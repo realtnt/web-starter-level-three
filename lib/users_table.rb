@@ -1,10 +1,6 @@
 require "user_entity"
 
 class UsersTable
-  class << self
-
-  end
-
   def initialize(db)
     @db = db
   end

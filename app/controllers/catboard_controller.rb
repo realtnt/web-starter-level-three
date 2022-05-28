@@ -8,9 +8,13 @@ require "database_connection"
 # require "animals_table"
 # require "animal_entity"
 
+require "date"
+
 require "cat_ads_table"
 require "cat_ad_entity"
 require "users_table"
+require "sighting_entity"
+require "sightings_table"
 
 class CatboardController < Sinatra::Base
   # This line allows us to send HTTP Verbs like `DELETE` using forms
@@ -42,6 +46,10 @@ class CatboardController < Sinatra::Base
     $global[:cat_ads_table] ||= CatAdsTable.new($global[:db])
   end
 
+  def sightings_table
+    $global[:sightings_table] ||= SightingsTable.new($global[:db])
+  end
+
   # Start your server using `rackup`.
   # It will sit there waiting for requests. It isn't broken!
 
@@ -67,6 +75,18 @@ class CatboardController < Sinatra::Base
     redirect '/catboard'
   end
 
+  get '/catboard/:index' do
+    ad = cat_ads_table.get(params[:index].to_i)
+    users_table = UsersTable.new($global[:db])
+    cat_owner = users_table.get(ad.user_id)
+    sightings = sightings_table.list(params[:index].to_i)
+    erb :'/catboard/catboard_details', locals: {
+      cat_ad: ad,
+      cat_owner: cat_owner,
+      sightings: sightings
+    }
+  end
+
   delete '/catboard/:index' do
     cat_ads_table.remove(params[:index].to_i)
     redirect '/catboard'
@@ -76,7 +96,7 @@ class CatboardController < Sinatra::Base
     cat_ad_index = params[:index].to_i
     erb :'catboard/catboard_edit', locals: {
       index: cat_ad_index,
-      cat_ad: cat_ads_table.get(cat_ad_index)
+      cat_ad: cat_ads_table.get(cat_ad_index),
     }
   end
 
@@ -91,38 +111,53 @@ class CatboardController < Sinatra::Base
     redirect '/catboard'
   end
 
-  # EXAMPLE ROUTES
-
-  get '/animals' do
-    erb :'catboard/animals_index', locals: { animals: animals_table.list }
-  end
-
-  get '/animals/new' do
-    erb :'catboard/animals_new'
-  end
-
-  post '/animals' do
-    animal = AnimalEntity.new(params[:species])
-    animals_table.add(animal)
-    redirect '/animals'
-  end
-
-  delete '/animals/:index' do
-    animals_table.remove(params[:index].to_i)
-    redirect '/animals'
-  end
-
-  get '/animals/:index/edit' do
-    animal_index = params[:index].to_i
-    erb :'catboard/animals_edit', locals: {
-      index: animal_index,
-      animal: animals_table.get(animal_index)
+  get '/catboard/:index/sighting' do
+    cat_ad = cat_ads_table.get(params[:index])
+    erb :'catboard/catboard_sighting', locals: {
+      cat_ad: cat_ad
     }
   end
 
-  patch '/animals/:index' do
-    animal_index = params[:index].to_i
-    animals_table.update(animal_index, params[:species])
-    redirect '/animals'
+  post '/catboard/:index/sighting/new' do
+    cat_ad = cat_ads_table.get(params[:index])
+    sighting = SightingEntity.new(
+      location: params[:location], 
+      details: params[:details], 
+      user_id: cat_ad.user_id, 
+      cat_ad_id: params[:index],
+      spotted_on: params[:spotted_on], 
+      posted_on: DateTime.now, 
+      id: nil
+    )
+    sightings_table.add(sighting)
+    redirect "/catboard/#{params[:index]}"
+  end
+
+  delete '/catboard/:ad_index/sighting/:index' do
+    sightings_table.remove(params[:index])
+    redirect "/catboard/#{params[:ad_index]}"
+  end
+
+  get '/catboard/:ad_index/sighting/:index' do
+    cat_ad = cat_ads_table.get(params[:ad_index])
+    sighting = sightings_table.get(params[:index])
+    erb :'catboard/catboard_sighting_edit', locals: {
+      cat_ad: cat_ad,
+      sighting: sighting
+    }
+  end
+
+  patch '/catboard/:ad_index/sighting/:index' do
+    cat_ad = cat_ads_table.get(params[:ad_index])
+    sightings_table.update(
+      index: params[:index],
+      location: params[:location], 
+      details: params[:details], 
+      user_id: cat_ad.user_id, 
+      cat_ad_id: params[:ad_index],
+      spotted_on: params[:spotted_on], 
+      posted_on: DateTime.now
+    )
+    redirect "/catboard/#{params[:ad_index]}"
   end
 end

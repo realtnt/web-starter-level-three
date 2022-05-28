@@ -44,6 +44,10 @@ form {
   display: inline;
 }
 
+button {
+  margin: 0;
+}
+
 .site-name {
   text-decoration: none;
   font-size: 2.5em;
@@ -64,16 +68,19 @@ form {
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .list {
+  padding-left: 1rem;
   width: 81%;
   min-height: 4.75rem;
 }
 
 .list-btn {
-  padding: 0.5rem 0.75rem;
+  padding: 0;
   width: 6rem;
+  height: 2.5rem;
 }
 
 .list-name {

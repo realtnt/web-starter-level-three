@@ -1,0 +1,64 @@
+<% require 'date' %>
+<h2><%= cat_ad.title %></h2>
+<img width=360px src="<%= cat_ad.image_url %>">
+<section>
+  <h4>Description:</h4>
+  <p>
+    <%= cat_ad.description %>
+  </p>
+  <h4>Owner's Name:</h4>
+  <p>
+    <%= cat_owner.name %>
+  </p>
+  <h4>Owner's email:</h4>
+  <p>
+    <%= cat_owner.email %>
+  </p>
+  <h4>Owner's Mobile Phone:</h4>
+  <p>
+    <%= cat_owner.mobile %>
+  </p>
+  <h4>Sightings:</h4>
+  <p>
+    
+  <% if sightings.empty? %>
+    --
+  <% else %>
+    <% sightings.each do |sighting| %>
+      <div class="flex-h" id="<%= sighting.location %>">
+        <ul>
+          <li><strong>Spotted on:</strong> <%= DateTime.parse(sighting.spotted_on).strftime('%a, %d-%b-%Y') %></li>
+          <li><strong>Seen at:</strong> <%= sighting.location %></li>
+          <li><strong>More info:</strong> <%= sighting.details ||= "--" %></li>
+          <small>Last updated: <%= DateTime.parse(sighting.posted_on).strftime('%a, %d-%b-%Y %H:%M') %></small>
+        </ul>
+        
+        <% if session[:user_id] && sighting.user_id == session[:user_id] %>
+          <div class="btn-container flex-v">
+            <form action="/catboard/<%= cat_ad.id %>/sighting/<%= sighting.id %>" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button>Delete</button>
+            </form>
+            <a class="btn" href="/catboard/<%= cat_ad.id %>/sighting/<%= sighting.id %>">Edit</a>
+          </div>
+        <% end %>
+      </div>
+      <hr>
+    <% end %>
+  <% end %>
+  </p>
+  <% if session[:user_id] && cat_ad.user_id == session[:user_id] %>
+    <div class="btn-container">
+      <form action="/catboard/<%= cat_ad.id %>" method="POST">
+        <%#
+          This hidden input is necessary for Sinatra to recognise
+          this as a DELETE request.
+        %>
+        <input type="hidden" name="_method" value="DELETE">
+        <button>Delete</button>
+      </form>
+      <a class="btn" href="/catboard/<%= cat_ad.id %>/edit">Edit</a>
+      <a class="btn" href="/catboard/<%= cat_ad.id %>/sighting">Add Sighting</a>
+    </div>
+  <% end %>
+</section>

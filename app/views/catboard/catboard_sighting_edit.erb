@@ -1,0 +1,20 @@
+<h2><%= cat_ad.title %></h2>
+<h4>Have you seen this cat? Please give details:</h4>
+<form action="/catboard/<%= cat_ad.id %>/sighting/<%= sighting.id %>" method="POST">
+<input type="hidden" name="_method" value="PATCH">
+  <p>
+    <label for="location">Where?</label>
+    <br>
+    <input type="text" id="location" name="location" value="<%= sighting.location %>">
+    <br>
+    <label for="spotted_on">When?</label>
+    <br>
+    <input type="date" id="spotted_on" name="spotted_on" value="<%= sighting.spotted_on %>">
+    <br>
+    <label for="details">Any more info?</label>
+    <br>
+    <textarea id="details" name="details"><%= sighting.details %></textarea>
+    <br>
+    <input type="submit" value="Submit">
+  </p>
+</form>

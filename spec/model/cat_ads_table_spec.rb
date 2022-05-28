@@ -20,7 +20,8 @@ RSpec.describe CatAdsTable do
     cat_ads_table.add(CatAdEntity.new(
       title: "Cat Ad Title", 
       description: "Cat Ad Description", 
-      image_url: "https://image.url"
+      image_url: "https://image.url",
+      user_id: 5
     ))
 
     cat_ads = cat_ads_table.list
@@ -28,6 +29,7 @@ RSpec.describe CatAdsTable do
     expect(cat_ads[0].title).to eq "Cat Ad Title"
     expect(cat_ads[0].description).to eq "Cat Ad Description"
     expect(cat_ads[0].image_url).to eq "https://image.url"
+    expect(cat_ads[0].user_id).to eq "5"
   end
 
   it "adds cat ads and removes them" do
@@ -36,7 +38,8 @@ RSpec.describe CatAdsTable do
     cat_ads_table.add(CatAdEntity.new(
       title: "Cat Ad Title", 
       description: "Cat Ad Description", 
-      image_url: "https://image.url"
+      image_url: "https://image.url",
+      user_id: 5
     ))
 
     cat_ads = cat_ads_table.list
@@ -44,6 +47,7 @@ RSpec.describe CatAdsTable do
     expect(cat_ads[0].title).to eq "Cat Ad Title"
     expect(cat_ads[0].description).to eq "Cat Ad Description"
     expect(cat_ads[0].image_url).to eq "https://image.url"
+    expect(cat_ads[0].user_id).to eq "5"
 
     cat_ads_table.remove(cat_ads[0].id)
     cat_ads = cat_ads_table.list
