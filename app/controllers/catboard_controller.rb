@@ -58,7 +58,7 @@ class CatboardController < Sinatra::Base
   end
 
   get '/catboard' do
-    erb :'catboard/catboard_index', locals: { 
+    erb :'catboard/index', locals: { 
       cat_ads: cat_ads_table.list
     }
   end
@@ -71,7 +71,7 @@ class CatboardController < Sinatra::Base
       error_msg = "error_msg=You cannot add Cat Ads with this account!"
       redirect "/catboard/error?#{error_msg}"
     else
-      erb :'catboard/catboard_new'
+      erb :'catboard/new'
     end
   end
 
@@ -94,7 +94,7 @@ class CatboardController < Sinatra::Base
     users_table = UsersTable.new($global[:db])
     cat_owner = users_table.get(ad.user_id)
     sightings = sightings_table.list(params[:index].to_i)
-    erb :'/catboard/catboard_details', locals: {
+    erb :'/catboard/details', locals: {
       cat_ad: ad,
       cat_owner: cat_owner,
       sightings: sightings
@@ -108,7 +108,7 @@ class CatboardController < Sinatra::Base
 
   get '/catboard/:index/edit' do
     cat_ad_index = params[:index].to_i
-    erb :'catboard/catboard_edit', locals: {
+    erb :'catboard/edit', locals: {
       index: cat_ad_index,
       cat_ad: cat_ads_table.get(cat_ad_index),
     }
@@ -127,7 +127,7 @@ class CatboardController < Sinatra::Base
 
   get '/catboard/:index/sighting' do
     cat_ad = cat_ads_table.get(params[:index])
-    erb :'catboard/catboard_sighting', locals: {
+    erb :'catboard/sighting', locals: {
       cat_ad: cat_ad
     }
   end
@@ -155,7 +155,7 @@ class CatboardController < Sinatra::Base
   get '/catboard/:ad_index/sighting/:index' do
     cat_ad = cat_ads_table.get(params[:ad_index])
     sighting = sightings_table.get(params[:index])
-    erb :'catboard/catboard_sighting_edit', locals: {
+    erb :'catboard/sighting_edit', locals: {
       cat_ad: cat_ad,
       sighting: sighting
     }
@@ -176,7 +176,7 @@ class CatboardController < Sinatra::Base
   end
 
   get '/catboard/my/ads' do
-    erb :'catboard/catboard_index', locals: { 
+    erb :'catboard/index', locals: { 
       cat_ads: cat_ads_table.list_by_user_id(session[:user_id])
     }
   end
