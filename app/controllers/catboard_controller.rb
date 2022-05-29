@@ -121,11 +121,20 @@ class CatboardController < Sinatra::Base
 
   patch '/catboard/:index' do
     cat_ad_index = params[:index].to_i
+    target = ''
+    if params[:file]
+      tempfile = params[:file][:tempfile]
+      filename = params[:file][:filename]
+      target = "public/uploads/#{filename}"
+      File.open(target, 'wb') { |f| f.write tempfile.read }
+    end
+
+    cat_ad = cat_ads_table.get(cat_ad_index)
     cat_ads_table.update(
-      index: cat_ad_index, 
+      index: cat_ad_index,
       title: params[:title],
       description: params[:description],
-      image_url: params[:image_url]
+      image_url: params[:file] ? target[6..] : cat_ad.image_url
     )
     redirect '/catboard'
   end
