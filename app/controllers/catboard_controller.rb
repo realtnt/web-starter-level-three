@@ -86,10 +86,11 @@ class CatboardController < Sinatra::Base
       File.open(target, 'wb') { |f| f.write tempfile.read }
     end
 
+    server_path = target[6..]
     cat_ads_table.add(CatAdEntity.new(
       title: params[:title],
       description: params[:description],
-      image_url: params[:file] ? target[6..] : "uploads/default.png",
+      image_url: params[:file] ? server_path : "uploads/default.png",
       user_id: session[:user_id]
     ))
     redirect '/catboard'
@@ -129,12 +130,13 @@ class CatboardController < Sinatra::Base
       File.open(target, 'wb') { |f| f.write tempfile.read }
     end
 
+    server_path = target[6..]
     cat_ad = cat_ads_table.get(cat_ad_index)
     cat_ads_table.update(
       index: cat_ad_index,
       title: params[:title],
       description: params[:description],
-      image_url: params[:file] ? target[6..] : cat_ad.image_url
+      image_url: params[:file] ? server_path : cat_ad.image_url
     )
     redirect '/catboard'
   end
