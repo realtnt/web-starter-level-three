@@ -68,7 +68,7 @@ class CatboardController < Sinatra::Base
       error_msg = "error_msg=You have to log in first!"
       redirect "/catboard/error?#{error_msg}"
     elsif users_table.get(session[:user_id]).advertiser == 't'
-      error_msg = "error_msg=You cannot add Cat Ads with this account!"
+      error_msg = "error_msg=You cannot do this from this account!"
       redirect "/catboard/error?#{error_msg}"
     else
       erb :'catboard/new'
@@ -127,9 +127,20 @@ class CatboardController < Sinatra::Base
 
   get '/catboard/:index/sighting' do
     cat_ad = cat_ads_table.get(params[:index])
-    erb :'catboard/sighting', locals: {
-      cat_ad: cat_ad
-    }
+    if !session.key?(:user_id)
+      error_msg = "error_msg=You have to log in first!"
+      redirect "/catboard/error?#{error_msg}"
+    elsif users_table.get(session[:user_id]).advertiser == 't'
+      error_msg = "error_msg=You cannot do this from this account!"
+      redirect "/catboard/error?#{error_msg}"
+    elsif cat_ad.user_id == session[:user_id]
+      error_msg = "error_msg=You cannot add sightings to your own ad!"
+      redirect "/catboard/error?#{error_msg}"
+    else      
+      erb :'catboard/sighting', locals: {
+        cat_ad: cat_ad
+      }
+    end
   end
 
   post '/catboard/:index/sighting/new' do
