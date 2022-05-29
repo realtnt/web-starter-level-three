@@ -47,18 +47,17 @@
     <% end %>
   <% end %>
   </p>
-  <% if session[:user_id] && cat_ad.user_id == session[:user_id] %>
+  <% if session[:user_id] %>
+    <% if cat_ad.user_id == session[:user_id] %>
     <div class="btn-container">
       <form action="/catboard/<%= cat_ad.id %>" method="POST">
-        <%#
-          This hidden input is necessary for Sinatra to recognise
-          this as a DELETE request.
-        %>
         <input type="hidden" name="_method" value="DELETE">
         <button>Delete</button>
       </form>
       <a class="btn" href="/catboard/<%= cat_ad.id %>/edit">Edit</a>
+    <% else %>
       <a class="btn" href="/catboard/<%= cat_ad.id %>/sighting">Add Sighting</a>
+    <% end %>
     </div>
   <% end %>
 </section>
