@@ -30,9 +30,10 @@
           <li><strong>Spotted on:</strong> <%= DateTime.parse(sighting.spotted_on).strftime('%a, %d-%b-%Y') %></li>
           <li><strong>Seen at:</strong> <%= sighting.location %></li>
           <li><strong>More info:</strong> <%= sighting.details ||= "--" %></li>
+          <small>Posted by: <%= posted_by %></small>
+          <br>
           <small>Last updated: <%= DateTime.parse(sighting.posted_on).strftime('%a, %d-%b-%Y %H:%M') %></small>
         </ul>
-        
         <% if session[:user_id] && sighting.user_id == session[:user_id] %>
           <div class="btn-container flex-v">
             <form action="/catboard/<%= cat_ad.id %>/sighting/<%= sighting.id %>" method="POST">

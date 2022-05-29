@@ -91,13 +91,14 @@ class CatboardController < Sinatra::Base
 
   get '/catboard/:index' do
     ad = cat_ads_table.get(params[:index].to_i)
-    users_table = UsersTable.new($global[:db])
     cat_owner = users_table.get(ad.user_id)
     sightings = sightings_table.list(params[:index].to_i)
+    posted_by = users_table.get(session[:user_id]).name
     erb :'/catboard/details', locals: {
       cat_ad: ad,
       cat_owner: cat_owner,
-      sightings: sightings
+      sightings: sightings,
+      posted_by: posted_by
     }
   end
 
@@ -148,7 +149,7 @@ class CatboardController < Sinatra::Base
     sighting = SightingEntity.new(
       location: params[:location], 
       details: params[:details], 
-      user_id: cat_ad.user_id, 
+      user_id: session[:user_id], 
       cat_ad_id: params[:index],
       spotted_on: params[:spotted_on], 
       posted_on: DateTime.now, 

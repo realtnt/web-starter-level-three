@@ -159,7 +159,6 @@ RSpec.describe "Cat Ads Feature", type: :feature do
     expect(page).to have_content "Tom Jones"
     expect(page).to have_content "tomjones@gmail.com"
     expect(page).to have_content "0123456789"
-    expect(page).to have_content "Add Sighting"
   end
 
   it "shows the ad details when logged in" do
@@ -203,6 +202,16 @@ RSpec.describe "Cat Ads Feature", type: :feature do
     fill_in "Image URL", with: ""
     click_button "Add Missing Cat Ad"
     
+    click_link "Log Out"
+    click_link "Sign Up"
+
+    fill_in "Name:", with: "Bob Jones"
+    fill_in "Email:", with: "bobjones@gmail.com"
+    fill_in "Mobile:", with: "0123356789"
+    fill_in "Password:", with: "1234"
+    click_button "Save"
+
+    click_link "Find Your Cat"
     find('section[name="Missing persian"]').click_link "Details"
     click_link "Add Sighting"
 
@@ -226,6 +235,16 @@ RSpec.describe "Cat Ads Feature", type: :feature do
     fill_in "Image URL", with: ""
     click_button "Add Missing Cat Ad"
     
+    click_link "Log Out"
+    click_link "Sign Up"
+
+    fill_in "Name:", with: "Bob Jones"
+    fill_in "Email:", with: "bobjones@gmail.com"
+    fill_in "Mobile:", with: "0123356789"
+    fill_in "Password:", with: "1234"
+    click_button "Save"
+
+    click_link "Find Your Cat"
     find('section[name="Missing persian"]').click_link "Details"
     click_link "Add Sighting"
 
@@ -257,6 +276,16 @@ RSpec.describe "Cat Ads Feature", type: :feature do
     fill_in "Image URL", with: ""
     click_button "Add Missing Cat Ad"
     
+    click_link "Log Out"
+    click_link "Sign Up"
+
+    fill_in "Name:", with: "Bob Jones"
+    fill_in "Email:", with: "bobjones@gmail.com"
+    fill_in "Mobile:", with: "0123356789"
+    fill_in "Password:", with: "1234"
+    click_button "Save"
+
+    click_link "Find Your Cat"
     find('section[name="Missing persian"]').click_link "Details"
     click_link "Add Sighting"
 
