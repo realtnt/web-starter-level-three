@@ -5,11 +5,15 @@
   <% cat_ads.each do |cat_ad| %>
     <section name="<%= cat_ad.title %>">
       <div class="flex-v">
-        <span class="list-name"><%= cat_ad.title %></h2></span>
+        <a class="list-name" class="btn" href="/catboard/<%= cat_ad.id %>">
+          <%= cat_ad.title %>
+        </a>
         <small>Posted by: <%= users_table.get(cat_ad.user_id).name %></small>
         <small>Last updated: <%= DateTime.parse(cat_ad.posted_on).strftime('%a, %d-%b-%Y %H:%M') %></small>
         <div class="flex-h">
-          <img width=120px src="<%= cat_ad.image_url %>">
+          <a class="list-name" class="btn" href="/catboard/<%= cat_ad.id %>">
+            <img width=120px src="<%= cat_ad.image_url %>">
+          </a>
           <p class="list">
             <% if cat_ad.description.length < 175 %>
               <%= cat_ad.description %>
