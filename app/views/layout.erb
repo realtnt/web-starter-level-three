@@ -10,8 +10,8 @@
     <header>
       <div class="flex-v">
         <a href="/catboard" class="site-name">Find Your Cat</a>
-        <% if session[:user_id] %>
-          <div class="menu not-signed-in">
+        <% if session.key?(:user_id) %>
+          <div class="menu signed-in">
             <a href="/catboard/new">Add Missing Cat Ad</a>
             <% if users_table.get(session[:user_id]).advertiser == 't' %>
               <a href="/catboard/my/campaigns">My Campaigns</a>

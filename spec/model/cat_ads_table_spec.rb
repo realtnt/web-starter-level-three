@@ -21,7 +21,8 @@ RSpec.describe CatAdsTable do
       title: "Cat Ad Title", 
       description: "Cat Ad Description", 
       image_url: "https://image.url",
-      user_id: 5
+      user_id: 5,
+      posted_on: "01/01/2022 00:00:00"
     ))
 
     cat_ads = cat_ads_table.list
@@ -39,7 +40,8 @@ RSpec.describe CatAdsTable do
       title: "Cat Ad Title", 
       description: "Cat Ad Description", 
       image_url: "https://image.url",
-      user_id: 5
+      user_id: 5,
+      posted_on: "01/01/2022 00:00:00"
     ))
 
     cat_ads = cat_ads_table.list
@@ -61,21 +63,24 @@ RSpec.describe CatAdsTable do
       title: "Cat Ad Title 1", 
       description: "Cat Ad Description 1", 
       image_url: "https://image1.url",
-      user_id: 5
+      user_id: 5,
+      posted_on: "01/01/2022 00:00:00"
     ))
 
     cat_ads_table.add(CatAdEntity.new(
       title: "Cat Ad Title 2", 
       description: "Cat Ad Description 2", 
       image_url: "https://image2.url",
-      user_id: 1
+      user_id: 1,
+      posted_on: "01/01/2022 00:00:00"
     ))
 
     cat_ads_table.add(CatAdEntity.new(
       title: "Cat Ad Title 3", 
       description: "Cat Ad Description 3", 
       image_url: "https://image3.url",
-      user_id: 5
+      user_id: 5,
+      posted_on: "01/01/2022 00:00:00"
     ))
 
     cat_ads = cat_ads_table.list_by_user_id(5)

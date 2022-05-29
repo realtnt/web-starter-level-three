@@ -21,9 +21,9 @@ class CatAdsTable
 
   def add(cat_ad)
     result = @db.run(
-      "INSERT INTO cat_ads (title, description, image_url, user_id) 
-        VALUES ($1, $2, $3, $4) RETURNING id;", 
-        [cat_ad.title, cat_ad.description, cat_ad.image_url, cat_ad.user_id]
+      "INSERT INTO cat_ads (title, description, image_url, user_id, posted_on) 
+        VALUES ($1, $2, $3, $4, $5) RETURNING id;", 
+        [cat_ad.title, cat_ad.description, cat_ad.image_url, cat_ad.user_id, cat_ad.posted_on]
     )
     return result[0]["id"]
   end
@@ -32,9 +32,9 @@ class CatAdsTable
     @db.run("DELETE FROM cat_ads WHERE id = $1;", [index])
   end
 
-  def update(index:, title:, description:, image_url:)
-    @db.run("UPDATE cat_ads SET title = $1, description = $2, image_url = $3 WHERE id = $4;", 
-      [title, description, image_url, index])
+  def update(index:, title:, description:, image_url:, posted_on:)
+    @db.run("UPDATE cat_ads SET title = $1, description = $2, image_url = $3, posted_on = $4 WHERE id = $5;", 
+      [title, description, image_url, posted_on, index])
   end
 
   def get(index)
@@ -50,6 +50,7 @@ class CatAdsTable
       title: row["title"],
       description: row["description"],
       image_url: row["image_url"],
+      posted_on: row["posted_on"],
       user_id: row["user_id"]
     )
   end

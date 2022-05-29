@@ -91,7 +91,8 @@ class CatboardController < Sinatra::Base
       title: params[:title],
       description: params[:description],
       image_url: params[:file] ? server_path : "uploads/default.png",
-      user_id: session[:user_id]
+      user_id: session[:user_id],
+      posted_on: DateTime.now
     ))
     redirect '/catboard'
   end
@@ -136,7 +137,8 @@ class CatboardController < Sinatra::Base
       index: cat_ad_index,
       title: params[:title],
       description: params[:description],
-      image_url: params[:file] ? server_path : cat_ad.image_url
+      image_url: params[:file] ? server_path : cat_ad.image_url,
+      posted_on: DateTime.now
     )
     redirect '/catboard'
   end

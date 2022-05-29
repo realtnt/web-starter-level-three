@@ -33,6 +33,7 @@ def reset_tables(db)
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     image_url TEXT,
+    posted_on TIMESTAMP NOT NULL,
     CONSTRAINT fk_user
       FOREIGN KEY(user_id) 
         REFERENCES users(id)
@@ -49,11 +50,6 @@ def reset_tables(db)
     advertiser BOOLEAN
     );"
   )
-
-  # Add your table creation SQL here
-  # Each one should be a pair of lines:
-  #   db.run("DROP TABLE IF EXISTS ...;")
-  #   db.run("CREATE TABLE ... (id SERIAL PRIMARY KEY, ...);")
 end
 
 dev_db = DatabaseConnection.new("localhost", "web_application_dev")
