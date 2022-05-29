@@ -44,10 +44,18 @@ class CatboardController < Sinatra::Base
     $global[:sightings_table] ||= SightingsTable.new($global[:db])
   end
 
+  def users_table
+    $global[:users_table] ||= UsersTable.new($global[:db])
+  end
+
   # Start your server using `rackup`.
   # It will sit there waiting for requests. It isn't broken!
 
   # YOUR CODE GOES BELOW THIS LINE
+
+  get '/' do
+    redirect '/catboard'
+  end
 
   get '/catboard' do
     erb :'catboard/catboard_index', locals: { 
@@ -56,7 +64,19 @@ class CatboardController < Sinatra::Base
   end
 
   get '/catboard/new' do
-    erb :'catboard/catboard_new'
+    if !session.key?(:user_id)
+      error_msg = "error_msg=You have to log in first!"
+      redirect "/catboard/error?#{error_msg}"
+    elsif users_table.get(session[:user_id]).advertiser == 't'
+      error_msg = "error_msg=You cannot add Cat Ads with this account!"
+      redirect "/catboard/error?#{error_msg}"
+    else
+      erb :'catboard/catboard_new'
+    end
+  end
+
+  get '/catboard/error' do
+    erb :error, locals: { error_msg: params[:error_msg] }
   end
 
   post '/catboard' do

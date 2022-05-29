@@ -311,4 +311,10 @@ RSpec.describe "Cat Ads Feature", type: :feature do
     expect(page).not_to have_content "High St"
     expect(page).not_to have_content "Humpty Dumpty sat on a wall Humpty Dumpty had a great fall"
   end
+
+  it "user tries to access Cat Ad Add page without logging in" do
+    visit '/catboard/new'
+
+    expect(page).to have_content "Som'n went wrong!"
+  end
 end

@@ -74,9 +74,9 @@ class UserController < Sinatra::Base
   end
 
   post '/users/login' do
-    @user = users_table.find_by(email: params[:email], password: params[:password])
-    if @user
-      session[:user_id] = @user.id
+    user = users_table.find_by(email: params[:email], password: params[:password])
+    if user
+      session[:user_id] = user.id
       redirect '/catboard'
     end
     redirect '/users/login'
