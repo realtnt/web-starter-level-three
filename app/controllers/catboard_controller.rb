@@ -93,12 +93,10 @@ class CatboardController < Sinatra::Base
     ad = cat_ads_table.get(params[:index].to_i)
     cat_owner = users_table.get(ad.user_id)
     sightings = sightings_table.list(params[:index].to_i)
-    posted_by = users_table.get(session[:user_id]).name
     erb :'/catboard/details', locals: {
       cat_ad: ad,
       cat_owner: cat_owner,
-      sightings: sightings,
-      posted_by: posted_by
+      sightings: sightings
     }
   end
 
