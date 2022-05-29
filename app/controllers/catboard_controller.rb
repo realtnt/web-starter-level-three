@@ -7,7 +7,6 @@ require 'sinatra/reloader'
 require "database_connection"
 
 require "date"
-require "fileutils"
 
 require "cat_ads_table"
 require "cat_ad_entity"
