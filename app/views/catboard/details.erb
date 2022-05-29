@@ -47,7 +47,7 @@
     <% end %>
   <% end %>
   </p>
-  <% if session[:user_id] %>
+  <% if session[:user_id] && users_table.get(session[:user_id]).advertiser != 't' %>
     <% if cat_ad.user_id == session[:user_id] %>
     <div class="btn-container">
       <form action="/catboard/<%= cat_ad.id %>" method="POST">

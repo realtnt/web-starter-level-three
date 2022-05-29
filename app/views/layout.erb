@@ -13,7 +13,11 @@
         <% if session[:user_id] %>
           <div class="menu not-signed-in">
             <a href="/catboard/new">Add Missing Cat Ad</a>
-            <a href="/catboard/my/ads">My Cat Ads</a>
+            <% if users_table.get(session[:user_id]).advertiser == 't' %>
+              <a href="/catboard/my/campaigns">My Campaigns</a>
+            <% else %>
+              <a href="/catboard/my/ads">My Cat Ads</a>
+            <% end %>
             <a href="/users/profile">Profile</a>
             <a href="/users/logout">Log Out</a>
           </div>
