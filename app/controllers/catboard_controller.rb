@@ -5,10 +5,9 @@ require 'sinatra/reloader'
 
 # You will want to require your data model class here
 require "database_connection"
-# require "animals_table"
-# require "animal_entity"
 
 require "date"
+require "fileutils"
 
 require "cat_ads_table"
 require "cat_ad_entity"
@@ -80,10 +79,18 @@ class CatboardController < Sinatra::Base
   end
 
   post '/catboard' do
+    target = ''
+    if params[:file]
+      tempfile = params[:file][:tempfile]
+      filename = params[:file][:filename]
+      target = "public/uploads/#{filename}"
+      File.open(target, 'wb') { |f| f.write tempfile.read }
+    end
+
     cat_ads_table.add(CatAdEntity.new(
       title: params[:title],
       description: params[:description],
-      image_url: params[:image_url] == " " ? nil : params[:image_url],
+      image_url: params[:file] ? target[6..] : "uploads/default.png",
       user_id: session[:user_id]
     ))
     redirect '/catboard'
