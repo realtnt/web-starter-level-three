@@ -5,11 +5,11 @@ require 'sinatra/reloader'
 
 # You will want to require your data model class here
 require "database_connection"
-# require "animals_table"
-# require "animal_entity"
 
 require "users_table"
 require "user_entity"
+require "campaigns_table"
+require "campaign_entity"
 
 class UserController < Sinatra::Base
   # This line allows us to send HTTP Verbs like `DELETE` using forms

@@ -1,0 +1,26 @@
+<h1>Add Campaign</h1>
+
+<form action="/campaign" method="POST" enctype="multipart/form-data">
+  <label for="title">Title</label>
+  <br>
+  <input type="text" id="title" name="title">
+  <br>
+  <label for="copy">Copy</label>
+  <br>
+  <textarea id="copy" name="copy"></textarea>
+  <br>
+  <label for="keywords">Target keywords</label>
+  <small>(separate keywords with commas)</small>
+  <br>
+  <input type="text" id="keywords" name="keywords">
+  <br>
+  <label for="area-codes">Target Area Codes</label>
+  <small>(separate area codes with commas)</small>
+  <br>
+  <input type="text" id="area-codes" name="area-codes">
+  <br>
+  <label for="file">Campaign Photo</label>
+  <br>
+  <input type="file" id="file" name="file">
+  <input type="submit" value="Add Campaign">
+</form>

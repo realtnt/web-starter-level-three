@@ -12,9 +12,13 @@
         <a href="/catboard" class="site-name">Find Your Cat</a>
         <% if session.key?(:user_id) %>
           <div class="menu signed-in">
-            <a href="/catboard/new">Add Missing Cat Ad</a>
             <% if users_table.get(session[:user_id]).advertiser == 't' %>
-              <a href="/catboard/my/campaigns">My Campaigns</a>
+              <a href="/campaign/new">Add Campaign</a>
+            <% else %>
+              <a href="/catboard/new">Add Missing Cat Ad</a>
+            <% end %>
+            <% if users_table.get(session[:user_id]).advertiser == 't' %>
+              <a href="/campaigns">My Campaigns</a>
             <% else %>
               <a href="/catboard/my/ads">My Cat Ads</a>
             <% end %>
