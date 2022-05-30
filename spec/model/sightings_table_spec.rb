@@ -73,16 +73,15 @@ RSpec.describe SightingsTable do
       spotted_on: "01/01/2022", 
       posted_on: "01/01/2022 00:00:00"
     )
-    sightings_table.add(sighting)
+    id = sightings_table.add(sighting)
 
-    sightings = sightings_table.list(3)
-    expect(sightings.length).to eq 1
-    expect(sightings[0].location).to eq "universe"
-    expect(sightings[0].details).to eq "lost"
-    expect(sightings[0].user_id).to eq "2"
-    expect(sightings[0].cat_ad_id).to eq "3"
-    expect(sightings[0].spotted_on).to eq "2022-01-01"
-    expect(sightings[0].posted_on).to eq "2022-01-01 00:00:00"
+    sighting = sightings_table.get(id)
+    expect(sighting.location).to eq "universe"
+    expect(sighting.details).to eq "lost"
+    expect(sighting.user_id).to eq "2"
+    expect(sighting.cat_ad_id).to eq "3"
+    expect(sighting.spotted_on).to eq "2022-01-01"
+    expect(sighting.posted_on).to eq "2022-01-01 00:00:00"
   end
 
   it "adds sighting and updates it" do

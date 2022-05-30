@@ -6,6 +6,72 @@ require "database_connection"
 # database tables are re-created.
 
 def reset_tables(db)
+
+  db.run("DROP TABLE IF EXISTS campaigns CASCADE;")
+  db.run("CREATE TABLE campaigns (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    title TEXT NOT NULL,
+    copy TEXT,
+    image_url text,
+    CONSTRAINT fk_user
+      FOREIGN KEY(user_id) 
+        REFERENCES users(id)
+        ON DELETE CASCADE
+    );"
+  )
+
+  db.run("DROP TABLE IF EXISTS keywords CASCADE;")
+  db.run("CREATE TABLE keywords (
+    id SERIAL PRIMARY KEY, 
+    keyword TEXT NOT NULL
+    );"
+  )
+
+  db.run("DROP TABLE IF EXISTS area_codes CASCADE;")
+  db.run("CREATE TABLE area_codes (
+    id SERIAL PRIMARY KEY, 
+    code TEXT NOT NULL
+    );"
+  )
+
+  db.run("DROP TABLE IF EXISTS campaign_keywords CASCADE;")
+  db.run("CREATE TABLE campaign_keywords (
+    keyword_id INT, 
+    campaign_id INT,
+    CONSTRAINT fk_keyword
+      FOREIGN KEY(keyword_id) 
+        REFERENCES keywords(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_campaign
+      FOREIGN KEY(campaign_id) 
+        REFERENCES campaigns(id)
+        ON DELETE CASCADE
+    );"
+  )
+
+  db.run("DROP TABLE IF EXISTS campaign_area_codes CASCADE;")
+  db.run("CREATE TABLE campaign_area_codes (
+    area_code_id INT, 
+    campaign_id INT,
+    CONSTRAINT fk_area_code
+      FOREIGN KEY(area_code_id) 
+        REFERENCES area_codes(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_campaign
+      FOREIGN KEY(campaign_id) 
+        REFERENCES campaigns(id)
+        ON DELETE CASCADE
+    );"
+  )
+
+  db.run("DROP TABLE IF EXISTS keywords CASCADE;")
+  db.run("CREATE TABLE keywords (
+    id SERIAL PRIMARY KEY, 
+    keyword TEXT NOT NULL
+    );"
+  )
+
   db.run("DROP TABLE IF EXISTS sightings CASCADE;")
   db.run("CREATE TABLE sightings (
     id SERIAL PRIMARY KEY,
@@ -40,6 +106,7 @@ def reset_tables(db)
         ON DELETE CASCADE
     );"
   )
+
   db.run("DROP TABLE IF EXISTS users CASCADE;")
   db.run("CREATE TABLE users (
     id SERIAL PRIMARY KEY, 
